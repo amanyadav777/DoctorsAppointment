@@ -1,0 +1,94 @@
+.main{
+    padding: 15px;
+    height: 100vh;
+}
+
+.sidebar{
+    background-color: #005555;
+    border-radius: 5px;
+    box-shadow: 0 0 2px gray;
+    margin-right: 20px;
+    min-height: 100%;
+    padding: 10px;
+}
+
+.content{
+    width: 100%;
+    height: 100%;
+}
+
+.header{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 2px gray;
+    margin-bottom: 20px;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    color: white;
+    font-weight: bold;
+}
+
+.role{
+    color: white;
+    font-size: 14px;
+    margin-top: -17px;
+}
+
+.body{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 2px gray;
+    height: 82vh;
+    padding: 15px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+.sidebar-menu{
+    margin-top: 100px; 
+    padding: 0 10px;   
+}
+
+.menu-item{
+    margin-top: 30px;
+}
+
+.menu-item a{
+    color: rgba(255, 255, 255, 0.731);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.menu-item i{
+    color: rgba(255, 255, 255, 0.748);
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 15px;
+}
+
+.active-menu-item{
+    color: white;
+    background-color: #013737;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.close-icon{
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+
+
+@media screen and (max-width:768px){
+    .menu{
+        padding: 0 5px;
+    }
+}
