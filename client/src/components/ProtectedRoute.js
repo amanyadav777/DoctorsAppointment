@@ -28,8 +28,9 @@ function ProtectedRoute(props) {
                 navigate("/login");
             }
         } catch (error) {
-            localStorage.clear();
-            navigate("/login");
+          dispatch(hideLoading());
+          localStorage.clear();
+          navigate("/login");
         }
     }
     useEffect(() => {
