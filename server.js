@@ -3,10 +3,14 @@ const app = express();
 require('dotenv').config();
 const db = require('./config/db');
 const path = require('path');
+const cors = require('cors');
 app.use(express.json());
 const userRoute = require('./routes/userRoute');
 const adminRoute = require('./routes/adminRoute');
 const doctorRoute = require("./routes/doctorsRoute");
+
+
+app.use(cors());
 
 app.use('/api/user', userRoute);
 app.use('/api/admin', adminRoute);
