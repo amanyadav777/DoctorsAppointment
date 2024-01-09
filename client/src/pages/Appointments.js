@@ -14,7 +14,7 @@ function Appointments() {
     try {
       dispatch(showLoading());
       const resposne = await axios.get(
-        "/api/user/get-appointments-by-user-id",
+        "https://doctorsappointement-backend.onrender.com/api/user/get-appointments-by-user-id",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

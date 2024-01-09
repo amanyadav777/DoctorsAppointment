@@ -17,7 +17,7 @@ function Profile() {
   const onFinish = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/doctor/update-doctor-profile",{
+      const response = await axios.post("https://doctorsappointement-backend.onrender.com/api/doctor/update-doctor-profile",{
           ...values,
           userId: user._id,
           timings: [
@@ -47,7 +47,7 @@ function Profile() {
   const getDoctorData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/doctor/get-doctor-info-by-user-id",
+      const response = await axios.post("https://doctorsappointement-backend.onrender.com/api/doctor/get-doctor-info-by-user-id",
         {
           userId: params.userId,
         },

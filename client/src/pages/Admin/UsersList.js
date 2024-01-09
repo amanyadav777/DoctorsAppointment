@@ -12,7 +12,7 @@ function UsersList() {
       const getUsersData = async () => {
         try {
           dispatch(showLoading());
-            const resposne = await axios.get("/api/admin/get-all-users", {
+            const resposne = await axios.get("https://doctorsappointement-backend.onrender.com/api/admin/get-all-users", {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
