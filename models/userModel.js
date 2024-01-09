@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
@@ -29,13 +29,13 @@ const userSchema = new mongoose.Schema(
     unseenNotifications: {
       type: Array,
       default: [],
-    }
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const userModel = mongoose.model('users', userSchema);
+const userModel = mongoose.model("users", userSchema);
 
 module.exports = userModel;
