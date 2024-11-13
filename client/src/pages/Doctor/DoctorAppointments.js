@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { Table } from "antd";
 import moment from "moment";
+import { API_BASE_URL } from "../../constants";
 
 function DoctorAppointments() {
   const [appointments, setAppointments] = useState([]);
@@ -14,7 +15,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const resposne = await axios.get(
-        "https://doctorsappointement-backend.onrender.com/api/doctor/get-appointments-by-doctor-id",
+        `${API_BASE_URL}/api/doctor/get-appointments-by-doctor-id`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -34,7 +35,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const resposne = await axios.post(
-        "https://doctorsappointement-backend.onrender.com/api/doctor/change-appointment-status",
+        `${API_BASE_URL}/api/doctor/change-appointment-status`,
         { appointmentId: record._id, status: status },
         {
           headers: {

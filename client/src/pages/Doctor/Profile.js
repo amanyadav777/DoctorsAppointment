@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import DoctorForm from "../../components/DoctorForm";
 import moment from "moment";
+import { API_BASE_URL } from "../../constants";
 
 function Profile() {
   const { user } = useSelector((state) => state.user);
@@ -17,7 +18,7 @@ function Profile() {
   const onFinish = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("https://doctorsappointement-backend.onrender.com/api/doctor/update-doctor-profile",{
+      const response = await axios.post("/api/doctor/update-doctor-profile",{
           ...values,
           userId: user._id,
           timings: [

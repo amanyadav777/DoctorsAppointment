@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {setUser } from '../redux/userSlice';
 import axios from 'axios';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
+import { API_BASE_URL } from "../constants";
 
 function ProtectedRoute(props) {
     const { user} = useSelector((state) => state.user);
@@ -12,7 +13,7 @@ function ProtectedRoute(props) {
     const getUser = async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.post("https://doctorsappointement-backend.onrender.com/api/user/getUserInfo",
+            const response = await axios.post(`${API_BASE_URL}/api/user/getUserInfo`,
               { token: localStorage.getItem('token') },
               {
                 headers: {

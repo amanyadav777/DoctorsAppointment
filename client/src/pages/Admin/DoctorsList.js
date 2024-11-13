@@ -6,6 +6,7 @@ import Layout from "../../components/Layout";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import moment from "moment";
+import { API_BASE_URL } from "../../constants";
 
 function DoctorsList() {
     const [doctors, setDoctors] = useState([]);
@@ -13,7 +14,7 @@ function DoctorsList() {
     const getDoctorsData = async () => {
       try {
         dispatch(showLoading());
-        const resposne = await axios.get("https://doctorsappointement-backend.onrender.com/api/admin/get-all-doctors", {
+        const resposne = await axios.get(`${API_BASE_URL}/api/admin/get-all-doctors`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -31,7 +32,7 @@ function DoctorsList() {
       try {
         dispatch(showLoading());
         const resposne = await axios.post(
-          "https://doctorsappointement-backend.onrender.com/api/admin/change-doctor-account-status",
+          `${API_BASE_URL}/api/admin/change-doctor-account-status`,
           { doctorId: record._id, userId: record.userId, status: status },
           {
             headers: {

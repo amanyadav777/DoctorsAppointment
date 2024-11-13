@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import {useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
+import { API_BASE_URL } from "../constants";
 
 function BookAppointment() {
   const [isAvailable, setIsAvailable] = useState(false);
@@ -22,7 +23,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "https://doctorsappointement-backend.onrender.com/api/doctor/get-doctor-info-by-id",
+        `${API_BASE_URL}/api/doctor/get-doctor-info-by-id`,
         {
           doctorId: params.doctorId,
         },
@@ -45,7 +46,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "https://doctorsappointement-backend.onrender.com/api/user/check-booking-avilability",
+        `${API_BASE_URL}/api/user/check-booking-avilability`,
         {
           doctorId: params.doctorId,
           date: date,
@@ -74,7 +75,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "https://doctorsappointement-backend.onrender.com/api/user/book-appointment",
+        `${API_BASE_URL}/api/user/book-appointment`,
         {
           doctorId: params.doctorId,
           userId: user._id,

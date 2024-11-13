@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux'
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
+import { API_BASE_URL } from "../constants";
 
 function Login() {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ function Login() {
   const onComplete = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post('https://doctorsappointement-backend.onrender.com/api/user/login', values);
+      const response = await axios.post(`${API_BASE_URL}/api/user/login`, values);
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);

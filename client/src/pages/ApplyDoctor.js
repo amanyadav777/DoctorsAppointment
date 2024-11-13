@@ -7,6 +7,7 @@ import DoctorForm from '../components/DoctorForm';
 import Layout from '../components/Layout'
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import moment from "moment";
+import { API_BASE_URL } from "../constants";
 
 function ApplyDoctor() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function ApplyDoctor() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "https://doctorsappointement-backend.onrender.com/api/user/apply-doctor-account",
+        `${API_BASE_URL}/api/user/apply-doctor-account`,
         {
           ...values,
           userId: user._id,

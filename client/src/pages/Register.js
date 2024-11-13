@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
+import { API_BASE_URL } from "../constants";
 
 function Register() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function Register() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "https://doctorsappointement-backend.onrender.com/api/user/register",
+        `${API_BASE_URL}/api/user/register`,
         values
       );
       dispatch(hideLoading());

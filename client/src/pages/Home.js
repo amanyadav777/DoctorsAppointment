@@ -5,13 +5,15 @@ import { Col, Row } from "antd";
 import Doctor from "../components/Doctor";
 import { useDispatch} from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
+import { API_BASE_URL } from "../constants";
+
 function Home() {
   const [doctors, setDoctors] = useState([]);
   const dispatch = useDispatch();
   const getData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("https://doctorsappointement-backend.onrender.com/api/user/get-all-approved-doctors", {
+      const response = await axios.get(`${API_BASE_URL}/api/user/get-all-approved-doctors`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

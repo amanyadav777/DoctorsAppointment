@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Layout from '../../components/Layout'
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import moment from 'moment';
+import { API_BASE_URL } from "../../constants";
 
 function UsersList() {
       const [users, setUsers] = useState([]);
@@ -12,11 +13,14 @@ function UsersList() {
       const getUsersData = async () => {
         try {
           dispatch(showLoading());
-            const resposne = await axios.get("https://doctorsappointement-backend.onrender.com/api/admin/get-all-users", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
+            const resposne = await axios.get(
+              `${API_BASE_URL}/api/admin/get-all-users`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
           dispatch(hideLoading());
           if (resposne.data.success) {
             setUsers(resposne.data.data);
