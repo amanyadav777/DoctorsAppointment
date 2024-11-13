@@ -66,7 +66,7 @@ function Appointments() {
   ];
   useEffect(() => {
     getAppointmentsData();
-  });
+  },[]);
   return (
     <Layout>
       <h1 className="page-title">Appointments</h1>
