@@ -1,12 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 
 function Doctor({ doctor }) {
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   return (
     <div
       className="card p-2 cursor-pointer"
-      onClick={() => navigate(`/book-appointment/${doctor._id}`)}
+      onClick={() => {
+        if (user != null) {
+          navigate(`/book-appointment/${doctor._id}`)
+        } else {
+          toast.error("Please login to book an appointment");
+        }
+      }
+      }
     >
       <h1 className="card-title">
         {doctor.firstName} {doctor.lastName}
@@ -16,10 +26,10 @@ function Doctor({ doctor }) {
           {doctor.specialization}
         </p>
       <hr />
-      <p>
+      {user!=null && <p>
         <b>Phone Number : </b>
         {doctor.phoneNumber}
-      </p>
+      </p>}
       <p>
         <b>Address : </b>
         {doctor.address}

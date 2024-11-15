@@ -149,7 +149,7 @@ router.post(
   }
 );
 
-router.get("/get-all-approved-doctors", authMiddleware, async (req, res) => {
+router.get("/get-all-approved-doctors", async (req, res) => {
   try {
     const doctors = await Doctor.find({status:"approved"});
     res.status(200).send({
