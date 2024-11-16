@@ -56,7 +56,7 @@ function App() {
         />
         <Route
           path="/"
-          element={<ProtectedRoute><Home /></ProtectedRoute>}
+          element={<ProtectedRoute pageName="Home"><Home /></ProtectedRoute>}
         />
         <Route
           path="/apply-doctor"

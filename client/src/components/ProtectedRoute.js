@@ -7,7 +7,7 @@ import { hideLoading, showLoading } from '../redux/alertsSlice';
 import { API_BASE_URL } from "../constants";
 
 function ProtectedRoute(props) {
-  console.log(props?.children?.type?.name);
+    console.log(props);
     const { user} = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,24 +36,21 @@ function ProtectedRoute(props) {
         }
     }
   useEffect(() => {
-    if (props?.children?.type?.name === "Home") {
+    if (props?.pageName === "Home") {
       if (!localStorage.getItem("token")) {
         localStorage.clear();
         navigate("/");
-      } else{
+      } else {
         getUser();
       }
     } else {
-        getUser();
+      getUser();
     }
     }, []);
     
     if (localStorage.getItem('token')) {
         return props.children;
-    } else if (
-      !localStorage.getItem("token") &&
-      props?.children?.type?.name === "Home"
-    ) {
+    } else if (!localStorage.getItem("token") && props?.pageName === "Home") {
       return props.children;
     } else {
       return <Navigate to="/login" />;
