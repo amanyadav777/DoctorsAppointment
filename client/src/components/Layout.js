@@ -32,11 +32,11 @@ function Layout({ children }) {
       link: "/apply-doctor",
       icon: "ri-hospital-line",
     },
-    {
-      name: "Profile",
-      link: "/profile",
-      icon: "ri-user-line",
-    },
+    // {
+    //   name: "Profile",
+    //   link: "/profile",
+    //   icon: "ri-user-line",
+    // },
   ];
   const adminMenu = [
     {
@@ -54,11 +54,11 @@ function Layout({ children }) {
       link: "/admin/doctorslist",
       icon: "ri-user-heart-line",
     },
-    {
-      name: "Profile",
-      link: "/profile",
-      icon: "ri-user-line",
-    },
+    // {
+    //   name: "Profile",
+    //   link: "/profile",
+    //   icon: "ri-user-line",
+    // },
   ];
 
   const doctorMenu = [
@@ -173,14 +173,14 @@ function Layout({ children }) {
               <div className="d-flex align-items-center px-4">
                 <Button
                   type="primary"
-                  className="primary-button mx-2"
+                  className="primary-button layout-button mx-2"
                   onClick={() => navigate("/login")}
                 >
                   Login
                 </Button>
                 <Button
                   type="primary"
-                  className="primary-button mx-2"
+                  className="primary-button layout-button mx-2"
                   onClick={() => navigate("/register")}
                 >
                   Register

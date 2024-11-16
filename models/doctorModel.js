@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const doctorSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "users",
       require: true,
     },
     firstName: {
@@ -42,10 +44,10 @@ const doctorSchema = new mongoose.Schema(
       type: Array,
       require: true,
     },
-    status:{
+    status: {
       type: String,
-      default:"pending"
-    }
+      default: "pending",
+    },
   },
   {
     timestamps: true,

@@ -30,6 +30,15 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    profileImage: {
+      type: String,
+      default: "N/A",
+    },
+    coverImage: {
+      type: String,
+      default:
+        "https://cdn.pixabay.com/photo/2020/06/16/16/00/people-5306374_1280.png",
+    },
   },
   {
     timestamps: true,

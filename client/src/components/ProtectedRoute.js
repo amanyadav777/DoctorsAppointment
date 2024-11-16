@@ -7,7 +7,7 @@ import { hideLoading, showLoading } from '../redux/alertsSlice';
 import { API_BASE_URL } from "../constants";
 
 function ProtectedRoute(props) {
-    console.log(props);
+    // console.log(props);
     const { user} = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();

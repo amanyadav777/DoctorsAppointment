@@ -151,16 +151,20 @@ router.post(
 
 router.get("/get-all-approved-doctors", async (req, res) => {
   try {
-    const doctors = await Doctor.find({status:"approved"});
+    const doctors = await Doctor.find({ status: "approved" }).populate(
+      "userId",
+      "name profileImage coverImage"
+    );
     res.status(200).send({
       message: "Doctors featched successfully",
       success: true,
       data: doctors,
     });
   } catch (error) {
+    console.log(error);
     res
       .status(500)
-      .send({ message: "Error in featching doctors", success: true });
+      .send({ message: "Error in featching doctors", success: false });
   }
 });
 

@@ -91,6 +91,12 @@ label{
     border-radius: 0.3rem;
 }
 
+.layout-button:hover {
+  background-color: #029d9d !important; 
+  transform: scale(1.05);   
+  box-shadow: 0 4px 8px #005555; 
+}
+
 .full-width-button{
     width: 100% !important;
 }
@@ -139,4 +145,29 @@ p{
     padding: 7px 15px;
     margin-left: -40px;
     border-bottom-left-radius: 10px;
+}
+
+.ml-1{
+    margin-left: 1rem;
+}
+
+.card-profile-img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-profile-initials {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff; /* Default blue background */
+  color: white;             /* White text */
+  font-size: 24px;          /* Larger font size */
+  font-weight: bold;
+  text-transform: uppercase;
 }
