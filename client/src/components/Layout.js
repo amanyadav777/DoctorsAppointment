@@ -110,7 +110,7 @@ function Layout({ children }) {
                 className={`d-flex menu-item`}
                 onClick={() => {
                   localStorage.clear();
-                  // navigate("/login");
+                  // navigate("/");
                 }}
               >
                 <i className="ri-logout-box-line"></i>
