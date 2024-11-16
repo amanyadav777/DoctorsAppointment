@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, useRouteLoaderData } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {setUser } from '../redux/userSlice';
 import axios from 'axios';
@@ -34,16 +34,28 @@ function ProtectedRoute(props) {
           navigate("/login");
         }
     }
-    useEffect(() => {
-      if (!user) {
+  useEffect(() => {
+    if (props?.children?.type?.name === "Home") {
+      if (!localStorage.getItem("token")) {
+        localStorage.clear();
+        navigate("/");
+      } else{
         getUser();
       }
+    } else {
+        getUser();
+    }
     }, []);
     
     if (localStorage.getItem('token')) {
         return props.children;
+    } else if (
+      !localStorage.getItem("token") &&
+      props?.children?.type?.name === "Home"
+    ) {
+      return props.children;
     } else {
-        return <Navigate to="/login" />
+      return <Navigate to="/login" />;
     }
 }
 

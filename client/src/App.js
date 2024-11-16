@@ -56,7 +56,7 @@ function App() {
         />
         <Route
           path="/"
-          element={<>{isTokenExist ? (<ProtectedRoute><Home /></ProtectedRoute>) : <Home />}</>}
+          element={<ProtectedRoute><Home /></ProtectedRoute>}
         />
         <Route
           path="/apply-doctor"
