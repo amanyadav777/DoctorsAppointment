@@ -201,8 +201,11 @@ function BookAppointment() {
           return [];
         },
       };
-    };
-
+  };
+  
+  const getInitials = (firstName, lastName) => {
+    return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`;
+  };
   
   useEffect(() => {
     getDoctorData();
@@ -211,13 +214,28 @@ function BookAppointment() {
     <Layout>
       {doctor && (
         <div>
-          <h1 className="page-title">
-            {doctor.firstName} {doctor.lastName}
-          </h1>
-          <p>
-            <b>Specialization : </b>
-            {doctor.specialization}
-          </p>
+          <div className="d-flex">
+            {doctor?.userId?.profileImage === "N/A" ? (
+              <div className="card-profile-initials">
+                {getInitials(doctor.firstName, doctor.lastName)}
+              </div>
+            ) : (
+              <img
+                src="{doctor.profileImage}"
+                alt="userImage"
+                className="card-profile-img"
+              />
+            )}
+            <div className="ml-1">
+              <h1 className="page-title">
+                {doctor.firstName} {doctor.lastName}
+              </h1>
+              <p>
+                <b>Specialization : </b>
+                {doctor.specialization}
+              </p>
+            </div>
+          </div>
           <hr />
           <Row gutter={20} className="mt-5" align="middle">
             <Col span={8} sm={24} xs={24} lg={8}>
