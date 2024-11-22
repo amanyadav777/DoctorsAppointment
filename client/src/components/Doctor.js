@@ -27,7 +27,7 @@ function Doctor({ doctor }) {
           </div>
         ) : (
           <img
-            src="{doctor.profileImage}"
+            src={doctor.userId.profileImage}
             alt="userImage"
             className="card-profile-img"
           />
