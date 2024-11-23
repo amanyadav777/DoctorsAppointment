@@ -20,7 +20,7 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    website: {
+    email: {
       type: String,
       require: true,
     },

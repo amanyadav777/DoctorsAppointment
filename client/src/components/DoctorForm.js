@@ -52,11 +52,11 @@ function DoctorForm({ onFinish, initivalValues }) {
         <Col span={8} xs={24} sm={24} lg={8}>
           <Form.Item
             required
-            label="Website"
-            name="website"
+            label="Email"
+            name="email"
             rules={[{ required: true }]}
           >
-            <Input placeholder="Website" />
+            <Input placeholder="Email" />
           </Form.Item>
         </Col>
         <Col span={8} xs={24} sm={24} lg={8}>

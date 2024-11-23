@@ -36,14 +36,14 @@ function UserProfile() {
             <div className="basic-info">
               <div className="profile-image">
                 {user?.profileImage === "N/A" ? (
-                  <div className="card-profile-initials">
+                  <div className="card-profile-initials card-profile-initials__profile">
                     {getInitials(user.name, user.name)}
                   </div>
                 ) : (
                   <img
                     src={user.profileImage}
                     alt="userImage"
-                    className="card-profile-img"
+                    className="card-profile-img card-profile-img__profile"
                   />
                 )}
               </div>

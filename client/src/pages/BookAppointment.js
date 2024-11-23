@@ -1,11 +1,11 @@
-import { Button, Col, DatePicker, Row, TimePicker } from "antd";
+import { Button, Col, DatePicker, Row, TimePicker, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import {useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import { API_BASE_URL } from "../constants";
 
@@ -18,6 +18,22 @@ function BookAppointment() {
   const [doctor, setDoctor] = useState(null);
   const params = useParams();
   const dispatch = useDispatch();
+
+  const handleChipClick = (chip) => {
+    const formattedDate = moment(chip, "YYYY-MM-DD hh:mm A").format("DD-MM-YYYY");
+    const formattedTime = moment(chip, "YYYY-MM-DD hh:mm A").format("HH:mm");
+    setDate(formattedDate);
+    setTime(formattedTime);
+    setIsAvailable(false);
+  };
+
+  // Example list of date/time chips
+  const chips = [
+    "2024-11-22 12:00 PM",
+    "2024-11-22 01:00 PM",
+    "2024-11-23 02:00 PM",
+    "2024-11-24 03:00 PM",
+  ];
 
   const getDoctorData = async () => {
     try {
@@ -43,6 +59,8 @@ function BookAppointment() {
     }
   };
   const checkAvailability = async () => {
+    console.log(date)
+    console.log(time)
     try {
       dispatch(showLoading());
       const response = await axios.post(
@@ -102,73 +120,19 @@ function BookAppointment() {
     }
   };
 
-    const disabledTime = () => {
-      if (!doctor?.timings) return {};
+  const disabledTime = () => {
+    if (!doctor?.timings) return {};
 
-      const [start, end] = doctor.timings.map((time) => moment(time, "HH:mm"));
+    const [start, end] = doctor.timings.map((time) => moment(time, "HH:mm"));
 
-      const doctorStartHour = start.hour();
-      const doctorEndHour = end.hour();
-      const doctorStartMinute = start.minute();
-      const doctorEndMinute = end.minute();
+    const doctorStartHour = start.hour();
+    const doctorEndHour = end.hour();
+    const doctorStartMinute = start.minute();
+    const doctorEndMinute = end.minute();
 
-      if (date && date === moment().format("DD-MM-YYYY")) {
-        const currentHour = moment().hour();
-        const currentMinute = moment().minute();
-
-        return {
-          disabledHours: () => {
-            const disabledHours = [];
-
-            for (let i = 0; i < doctorStartHour; i++) {
-              disabledHours.push(i);
-            }
-
-            for (let i = doctorEndHour + 1; i < 24; i++) {
-              disabledHours.push(i);
-            }
-
-            if (date === moment().format("DD-MM-YYYY")) {
-              for (let i = 0; i < currentHour; i++) {
-                disabledHours.push(i);
-              }
-            }
-
-            return [...new Set(disabledHours)];
-          },
-          disabledMinutes: (selectedHour) => {
-            // Disable all minutes initially if no hour is selected
-            if (selectedHour === undefined) {
-              return Array.from({ length: 60 }, (_, i) => i);
-            }
-
-            const disabledMinutes = [];
-
-            if (selectedHour === doctorStartHour) {
-              for (let i = 0; i < doctorStartMinute; i++) {
-                disabledMinutes.push(i);
-              }
-            }
-
-            if (selectedHour === doctorEndHour) {
-              for (let i = doctorEndMinute + 1; i < 60; i++) {
-                disabledMinutes.push(i);
-              }
-            }
-
-            if (
-              date === moment().format("DD-MM-YYYY") &&
-              selectedHour === currentHour
-            ) {
-              for (let i = 0; i < currentMinute; i++) {
-                disabledMinutes.push(i);
-              }
-            }
-
-            return [...new Set(disabledMinutes)];
-          },
-        };
-      }
+    if (date && date === moment().format("DD-MM-YYYY")) {
+      const currentHour = moment().hour();
+      const currentMinute = moment().minute();
 
       return {
         disabledHours: () => {
@@ -177,11 +141,18 @@ function BookAppointment() {
           for (let i = 0; i < doctorStartHour; i++) {
             disabledHours.push(i);
           }
+
           for (let i = doctorEndHour + 1; i < 24; i++) {
             disabledHours.push(i);
           }
 
-          return disabledHours;
+          if (date === moment().format("DD-MM-YYYY")) {
+            for (let i = 0; i < currentHour; i++) {
+              disabledHours.push(i);
+            }
+          }
+
+          return [...new Set(disabledHours)];
         },
         disabledMinutes: (selectedHour) => {
           // Disable all minutes initially if no hour is selected
@@ -189,24 +160,71 @@ function BookAppointment() {
             return Array.from({ length: 60 }, (_, i) => i);
           }
 
+          const disabledMinutes = [];
+
           if (selectedHour === doctorStartHour) {
-            return Array.from({ length: doctorStartMinute }, (_, i) => i);
+            for (let i = 0; i < doctorStartMinute; i++) {
+              disabledMinutes.push(i);
+            }
           }
+
           if (selectedHour === doctorEndHour) {
-            return Array.from(
-              { length: 60 - doctorEndMinute - 1 },
-              (_, i) => i + doctorEndMinute + 1
-            );
+            for (let i = doctorEndMinute + 1; i < 60; i++) {
+              disabledMinutes.push(i);
+            }
           }
-          return [];
+
+          if (
+            date === moment().format("DD-MM-YYYY") &&
+            selectedHour === currentHour
+          ) {
+            for (let i = 0; i < currentMinute; i++) {
+              disabledMinutes.push(i);
+            }
+          }
+
+          return [...new Set(disabledMinutes)];
         },
       };
+    }
+
+    return {
+      disabledHours: () => {
+        const disabledHours = [];
+
+        for (let i = 0; i < doctorStartHour; i++) {
+          disabledHours.push(i);
+        }
+        for (let i = doctorEndHour + 1; i < 24; i++) {
+          disabledHours.push(i);
+        }
+
+        return disabledHours;
+      },
+      disabledMinutes: (selectedHour) => {
+        // Disable all minutes initially if no hour is selected
+        if (selectedHour === undefined) {
+          return Array.from({ length: 60 }, (_, i) => i);
+        }
+
+        if (selectedHour === doctorStartHour) {
+          return Array.from({ length: doctorStartMinute }, (_, i) => i);
+        }
+        if (selectedHour === doctorEndHour) {
+          return Array.from(
+            { length: 60 - doctorEndMinute - 1 },
+            (_, i) => i + doctorEndMinute + 1
+          );
+        }
+        return [];
+      },
+    };
   };
-  
+
   const getInitials = (firstName, lastName) => {
     return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`;
   };
-  
+
   useEffect(() => {
     getDoctorData();
   }, []);
@@ -263,12 +281,30 @@ function BookAppointment() {
                 {doctor.feePerConsultation}
               </p>
               <p>
-                <b>Website : </b>
+                <b>Email : </b>
                 {doctor.website}
+              </p>
+              <p>
+                <b>Latest Available Appointments : </b>
+                {chips.map((chip, index) => (
+                  <Tag
+                    key={index}
+                    color="blue"
+                    style={{
+                      cursor: "pointer",
+                      marginBottom: "10px",
+                      fontSize: "16px",
+                    }}
+                    onClick={() => handleChipClick(chip)}
+                  >
+                    {chip}
+                  </Tag>
+                ))}
               </p>
               <div className="d-flex flex-column pt-2 mt-2">
                 <DatePicker
                   format="DD-MM-YYYY"
+                  value={date ? moment(date, "DD-MM-YYYY") : null}
                   disabledDate={(current) => {
                     return current && current < moment().startOf("day");
                   }}
@@ -284,7 +320,7 @@ function BookAppointment() {
                   disabled={!date}
                   disabledTime={disabledTime}
                   showNow={false}
-                  // value={time ? moment(time, "HH:mm") : ""}
+                  value={time ? moment(time, "HH:mm") : ""}
                   onChange={(value) => {
                     setTime(moment(value.$d).format("HH:mm"));
                     setIsAvailable(false);
